@@ -3,7 +3,7 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap
 from LibraryManage import app
 from flask_wtf import Form
@@ -13,8 +13,10 @@ from LibrarySearchEngine import SearchEngine
 
 search_engine = SearchEngine()
 bootstrap = Bootstrap(app)
-class NameQueryForm(Form):
-    name = StringField("The name of the book", validators=[Required()])
+class QueryForm(Form):
+    ISBN = StringField("ISBN")
+    name = StringField("Name (case insensitive)")
+    authors = StringField("Authors seperated by comma")
     submit = SubmitField("Press to Query")
 
 @app.route('/')
@@ -46,8 +48,10 @@ def about():
 @app.route('/query', methods = ['GET', 'POST'])
 def query():
     """query a book."""
-    form = NameQueryForm()
-    if form.validate_on_submit():
-        print('name = ', form.name.data)
-        return render_template('showbooklist.html', bookList = search_engine.search(form.name.data))
+    form = QueryForm()
+    if request.method == 'POST':
+        if form.ISBN.data or form.name.data or form.authors.data:
+            return render_template('showbooklist.html', bookList = search_engine.search(form.name.data))
+        else:
+            flash("Please fill at least one field.")
     return render_template('query.html',form=form)
