@@ -30,6 +30,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Book.py" />
+    <Compile Include="LibrarySearchEngine.py" />
+    <Compile Include="Location.py" />
     <Compile Include="runserver.py" />
     <Compile Include="LibraryManage\__init__.py" />
     <Compile Include="LibraryManage\views.py" />
