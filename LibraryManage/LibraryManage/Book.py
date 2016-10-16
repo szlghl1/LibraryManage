@@ -1,7 +1,7 @@
 #Book.py
 #Ling He
 #10/2/2016
-from Location import Location
+from LibraryManage.Location import Location
 
 class Book:
     '''

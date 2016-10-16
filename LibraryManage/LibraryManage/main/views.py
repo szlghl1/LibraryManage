@@ -3,29 +3,20 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import Flask, render_template, redirect, url_for, request, flash
-from flask_bootstrap import Bootstrap
-from LibraryManage import app
-from flask_wtf import Form
-from wtforms import StringField, SubmitField
-from wtforms.validators import Required
-from LibrarySearchEngine import SearchEngine
+from flask import render_template, redirect, url_for, request, flash
+from LibraryManage.LibrarySearchEngine import SearchEngine
+from .forms import QueryForm
+from . import main
 
 search_engine = SearchEngine()
-bootstrap = Bootstrap(app)
-class QueryForm(Form):
-    ISBN = StringField("ISBN")
-    name = StringField("Name (case insensitive)")
-    authors = StringField("Authors seperated by comma")
-    submit = SubmitField("Press to Query")
 
-@app.route('/')
-@app.route('/home')
+@main.route('/')
+@main.route('/home')
 def home():
     """Renders the home page."""
-    return redirect(url_for('query'))
+    return redirect(url_for('main.query'))
 
-@app.route('/contact')
+@main.route('/contact')
 def contact():
     """Renders the contact page."""
     return render_template(
@@ -35,7 +26,7 @@ def contact():
         message='Your contact page.'
     )
 
-@app.route('/about')
+@main.route('/about')
 def about():
     """Renders the about page."""
     return render_template(
@@ -45,7 +36,7 @@ def about():
         message='This is a library management system by Ling He. It helps you find the location of books you are looking for.'
     )
 
-@app.route('/query', methods = ['GET', 'POST'])
+@main.route('/query', methods = ['GET', 'POST'])
 def query():
     """query a book."""
     form = QueryForm()

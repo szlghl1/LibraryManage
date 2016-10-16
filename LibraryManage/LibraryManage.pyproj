@@ -30,15 +30,26 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Book.py" />
-    <Compile Include="LibrarySearchEngine.py" />
-    <Compile Include="Location.py" />
+    <Compile Include="LibraryManage\auth\forms.py" />
+    <Compile Include="LibraryManage\auth\views.py" />
+    <Compile Include="LibraryManage\auth\__init__.py" />
+    <Compile Include="LibraryManage\Book.py" />
+    <Compile Include="LibraryManage\LibrarySearchEngine.py" />
+    <Compile Include="LibraryManage\Location.py" />
+    <Compile Include="LibraryManage\main\forms.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LibraryManage\main\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="LibraryManage\__init__.py" />
-    <Compile Include="LibraryManage\views.py" />
+    <Compile Include="LibraryManage\main\views.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="LibraryManage\" />
+    <Folder Include="LibraryManage\main\" />
+    <Folder Include="LibraryManage\auth\" />
     <Folder Include="LibraryManage\static\" />
     <Folder Include="LibraryManage\static\content\" />
     <Folder Include="LibraryManage\static\fonts\" />
