@@ -23,8 +23,12 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/query">Search</a></li>
-                <li><a href="/">Control</a></li>
                 <li><a href="/about">About</a></li>
+                {% if navbar %}
+                {% for key,value in navbar.items() %}
+                <li><a href="{{ value }}">{{ key }}</a></li>
+                {% endfor %}
+                {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/login">Log in</a></li>

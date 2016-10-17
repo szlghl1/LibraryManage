@@ -45,4 +45,4 @@ def query():
             return render_template('showbooklist.html', bookList = search_engine.search(form.name.data))
         else:
             flash("Please fill at least one field.")
-    return render_template('query.html',form=form)
+    return render_template('book_form.html',form=form, title="Find your book here", header="Find your books by One Click!")

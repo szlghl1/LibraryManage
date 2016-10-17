@@ -30,6 +30,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="LibraryManage\add_book\forms.py" />
+    <Compile Include="LibraryManage\add_book\views.py" />
+    <Compile Include="LibraryManage\add_book\__init__.py" />
     <Compile Include="LibraryManage\auth\forms.py" />
     <Compile Include="LibraryManage\auth\views.py" />
     <Compile Include="LibraryManage\auth\__init__.py" />
@@ -50,6 +53,7 @@
     <Folder Include="LibraryManage\" />
     <Folder Include="LibraryManage\main\" />
     <Folder Include="LibraryManage\auth\" />
+    <Folder Include="LibraryManage\add_book\" />
     <Folder Include="LibraryManage\static\" />
     <Folder Include="LibraryManage\static\content\" />
     <Folder Include="LibraryManage\static\fonts\" />
