@@ -22,8 +22,9 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/query">Search</a></li>
-                <li><a href="/about">About</a></li>
+                <li><a href={{url_for('main.query')}}>Search</a></li>
+                <li><a href={{url_for('add_book.add_book')}}>Add a book</a></li>
+                <li><a href={{url_for('main.about')}}>About</a></li>
                 {% if navbar %}
                 {% for key,value in navbar.items() %}
                 <li><a href="{{ value }}">{{ key }}</a></li>
@@ -31,7 +32,12 @@
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/login">Log in</a></li>
+                {% if current_user.is_authenticated %}
+                <li><a href={{url_for('main.home')}}>Hi, {{ current_user.name }}</a></li>
+                <li><a href={{url_for('auth.logout')}}>Log out</a></li>
+                {% else %}
+                <li><a href={{url_for('auth.login')}}>Log in</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>

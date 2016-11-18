@@ -4,3 +4,6 @@ flask-wtf
 flask-sqlalchemy
 flask-moment
 flask-script
+Flask-Login
+Werkzeug
+itsdangerous
