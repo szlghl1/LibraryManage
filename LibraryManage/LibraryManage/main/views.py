@@ -47,7 +47,7 @@ def query():
                 d['name'] = form.name.data
             if len(form.authors.data) != 0:
                 d['author'] = form.authors.data
-            return render_template('showbooklist.html', bookList = Book.query.filter_by(**d).all())
+            return render_template('showbooklist.html', title = 'Here are the books you queryed.', bookList = Book.query.filter_by(**d).all())
         else:
             flash("Please fill at least one field.")
     return render_template('book_form.html',form=form, title="Find your book here", header="Find your books by One Click!")
