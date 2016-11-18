@@ -2,8 +2,8 @@
 A library managment system based on flask.
 
 to do list:
-	- query book
-	- login
-	- add books after login
-	- modify password
-	- add users
+- login
+- add books after login
+- case insensitive query
+- modify password
+- add users
