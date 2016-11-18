@@ -12,6 +12,7 @@
       <tr>
         <th>ISBN</th>
         <th>Name</th>
+        <th>Authors</th>
         <th>Floor</th>
         <th>Shelf</th>
         <th>Level</th>
@@ -22,9 +23,10 @@
       <tr>
         <td>{{ book.ISBN }}</td>
         <td>{{ book.name }}</td>
-        <td>{{ book.loca.floor }}</td>
-        <td>{{ book.loca.shelf }}</td>
-        <td>{{ book.loca.level }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.floor }}</td>
+        <td>{{ book.shelf }}</td>
+        <td>{{ book.level }}</td>
       </tr>
       {% endfor %}
     </tbody>

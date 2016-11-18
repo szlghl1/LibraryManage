@@ -4,11 +4,9 @@ Routes and views for the flask application.
 
 from datetime import datetime
 from flask import render_template, redirect, url_for, request, flash
-from LibraryManage.LibrarySearchEngine import SearchEngine
 from .forms import QueryForm
 from . import main
-
-search_engine = SearchEngine()
+from LibraryManage.database.Models import Book
 
 @main.route('/')
 @main.route('/home')
@@ -42,7 +40,7 @@ def query():
     form = QueryForm()
     if request.method == 'POST':
         if form.ISBN.data or form.name.data or form.authors.data:
-            return render_template('showbooklist.html', bookList = search_engine.search(form.name.data))
+            return render_template('showbooklist.html', bookList = Book.query.filter_by(author = form.authors.data).all())
         else:
             flash("Please fill at least one field.")
     return render_template('book_form.html',form=form, title="Find your book here", header="Find your books by One Click!")

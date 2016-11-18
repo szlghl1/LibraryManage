@@ -1,5 +1,5 @@
 @echo off
-set "VIRTUAL_ENV=E:\LibraryManage\LibraryManage\env"
+set "VIRTUAL_ENV=E:\FilesGithub\LibraryManage\LibraryManage\env"
 
 if not defined PROMPT (
     set "PROMPT=$P$G"
