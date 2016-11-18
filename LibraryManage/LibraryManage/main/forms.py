@@ -3,6 +3,6 @@ from wtforms import StringField, SubmitField
 
 class QueryForm(FlaskForm):
     ISBN = StringField("ISBN")
-    name = StringField("Name (case insensitive)")
-    authors = StringField("Authors seperated by comma")
+    name = StringField("Name")
+    authors = StringField("Author")
     submit = SubmitField("Press to Query")
