@@ -20,7 +20,7 @@ def run_server():
     from LibraryManage.auth import auth as auth_blueprint
     from LibraryManage.add_book import add_book as add_book_blueprint
     app.register_blueprint(main_blueprint)
-    app.register_blueprint(auth_blueprint)
+    app.register_blueprint(auth_blueprint, url_prefix='/auth')
     app.register_blueprint(add_book_blueprint)
     HOST = environ.get('SERVER_HOST', 'localhost')
     try:
