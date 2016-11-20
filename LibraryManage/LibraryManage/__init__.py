@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
-from os import sys, path, environ
+from os import sys, path
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
@@ -14,7 +14,7 @@ login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 
-def run_server():
+def get_app():
     login_manager.init_app(app)
     from LibraryManage.main import main as main_blueprint
     from LibraryManage.auth import auth as auth_blueprint
@@ -22,12 +22,7 @@ def run_server():
     app.register_blueprint(main_blueprint)
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
     app.register_blueprint(add_book_blueprint)
-    HOST = environ.get('SERVER_HOST', 'localhost')
-    try:
-        PORT = int(environ.get('SERVER_PORT', '5555'))
-    except ValueError:
-        PORT = 5555
-    app.run(HOST, PORT)
+    return app
 
 #config is in app.config
 db = SQLAlchemy(app)
