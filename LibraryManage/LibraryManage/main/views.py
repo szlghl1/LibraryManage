@@ -12,7 +12,7 @@ from LibraryManage.database.Models import Book
 @main.route('/home')
 def home():
     """Renders the home page."""
-    return redirect(url_for('main.query'))
+    return render_template('home.html')
 
 @main.route('/contact')
 def contact():
