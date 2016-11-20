@@ -7,9 +7,13 @@
 	<h1>{{ title }}</h1>
 </div>
 <div class = "container">
+  <form action="/show_books" method='POST'>
 	<table class="table table-hover">
     <thead>
       <tr>
+        {% if if_deletable %}
+        <th>Select</th>
+        {% endif %}
         <th>ISBN</th>
         <th>Name</th>
         <th>Author</th>
@@ -19,17 +23,22 @@
       </tr>
     </thead>
     <tbody>
-      {% for book in bookList %}
+      {% for i in range(0, bookList|length) %}
       <tr>
-        <td>{{ book.ISBN }}</td>
-        <td>{{ book.name }}</td>
-        <td>{{ book.author }}</td>
-        <td>{{ book.floor }}</td>
-        <td>{{ book.shelf }}</td>
-        <td>{{ book.level }}</td>
+        {% if if_deletable %}
+        <td><input name='checkbox{{i}}' type='checkbox'></td>
+        {% endif %}
+        <td>{{ bookList[i].ISBN }}</td>
+        <td>{{ bookList[i].name }}</td>
+        <td>{{ bookList[i].author }}</td>
+        <td>{{ bookList[i].floor }}</td>
+        <td>{{ bookList[i].shelf }}</td>
+        <td>{{ bookList[i].level }}</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+  <input class="btn btn-default" type="submit" value="Delete the selected books">
+  </form>
 </div>
 {% endblock %}

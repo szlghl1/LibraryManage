@@ -3,10 +3,11 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template, redirect, url_for, request, flash
+from flask import render_template, redirect, url_for, request, flash, session
 from .forms import QueryForm
 from . import main
 from LibraryManage.database.Models import Book
+from LibraryManage import db
 
 @main.route('/')
 @main.route('/home')
@@ -47,7 +48,30 @@ def query():
                 d['name'] = form.name.data
             if len(form.authors.data) != 0:
                 d['author'] = form.authors.data
-            return render_template('showbooklist.html', title = 'Here are the books you queryed.', bookList = Book.query.filter_by(**d).all())
+            bookList = Book.query.filter_by(**d).all()
+            session['searching_conditions'] = d
+            return redirect(url_for('main.show_books'))
         else:
             flash("Please fill at least one field.")
     return render_template('book_form.html',form=form, title="Find your book here", header="Find your books by One Click!")
+
+@main.route('/show_books', methods = ['GET', 'POST'])
+def show_books():
+    '''
+    GET: show searched books. parameters passed by cookie
+    POST: delete the books you selected
+    '''
+    bookList = Book.query.filter_by(**session['searching_conditions']).all()
+    if request.method == 'GET':
+        return render_template('showbooklist.html', title = 'Here are the books you queryed.', bookList = bookList, if_deletable = True)
+    if request.method == 'POST':
+        bookList = Book.query.filter_by(**session['searching_conditions']).all()
+        count = 0
+        for key in request.form:
+            #key is like checkbox[integer], so we can simply use the [8:]
+            index = int(key[8:])
+            db.session.delete(bookList[index])
+            count += 1
+        db.session.commit()
+        flash('The selected %i books are deleted' % count)
+        return redirect(url_for('main.show_books'))
