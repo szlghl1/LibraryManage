@@ -3,6 +3,8 @@ A library managment system based on flask.
 
 ##to do list:
 - delete a book
+- add flask-script
+- add unit test
 
 ##trivial to do list:
 - show books list in pages
