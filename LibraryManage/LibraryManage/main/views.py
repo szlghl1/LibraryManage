@@ -3,6 +3,7 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
+from sqlalchemy import func
 from flask import render_template, redirect, url_for, request, flash, session
 from .forms import QueryForm
 from . import main
@@ -61,7 +62,15 @@ def show_books():
     GET: show searched books. parameters passed by cookie
     POST: delete the books you selected
     '''
-    bookList = Book.query.filter_by(**session['searching_conditions']).all()
+    #this is for case sensitive whole comparison
+    #bookList = Book.query.filter_by(**session['searching_conditions']).all()
+    bookList = Book.query
+    queryConditions = session['searching_conditions']
+    for k in queryConditions:
+        #both statements work, just think the later one should be faster
+        #bookList = bookList.filter(getattr(Book, k).ilike('%' + queryConditions[k] + '%'))
+        bookList = bookList.filter(func.lower(getattr(Book, k)).contains(func.lower(queryConditions[k])))
+    bookList = bookList.all()
     if request.method == 'GET':
         return render_template('showbooklist.html', title = 'Here are the books you queryed.', bookList = bookList, if_deletable = True)
     if request.method == 'POST':
