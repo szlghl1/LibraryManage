@@ -5,6 +5,7 @@ Routes and views for the flask application.
 from datetime import datetime
 from sqlalchemy import func
 from flask import render_template, redirect, url_for, request, flash, session
+from flask_login import current_user
 from .forms import QueryForm
 from . import main
 from LibraryManage.database.Models import Book
@@ -72,15 +73,17 @@ def show_books():
         bookList = bookList.filter(func.lower(getattr(Book, k)).contains(func.lower(queryConditions[k])))
     bookList = bookList.all()
     if request.method == 'GET':
-        return render_template('showbooklist.html', title = 'Here are the books you queryed.', bookList = bookList, if_deletable = True)
+        return render_template('showbooklist.html', title = 'Here are the books you queryed.', bookList = bookList, if_deletable = current_user.is_authenticated)
     if request.method == 'POST':
-        bookList = Book.query.filter_by(**session['searching_conditions']).all()
-        count = 0
-        for key in request.form:
-            #key is like checkbox[integer], so we can simply use the [8:]
-            index = int(key[8:])
-            db.session.delete(bookList[index])
-            count += 1
-        db.session.commit()
-        flash('The selected %i books are deleted' % count)
+        if current_user.is_authenticated:
+            count = 0
+            for key in request.form:
+                #key is like checkbox[integer], so we can simply use the [8:]
+                index = int(key[8:])
+                db.session.delete(bookList[index])
+                count += 1
+            db.session.commit()
+            flash('The selected %i books are deleted' % count)
+        else:
+            flash('Illegal try to delete. You do not login.')
         return redirect(url_for('main.show_books'))

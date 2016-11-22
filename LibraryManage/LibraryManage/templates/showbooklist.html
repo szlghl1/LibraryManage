@@ -38,7 +38,9 @@
       {% endfor %}
     </tbody>
   </table>
+  {% if if_deletable %}
   <input class="btn btn-default" type="submit" value="Delete the selected books">
+  {% endif %}
   </form>
 </div>
 {% endblock %}
